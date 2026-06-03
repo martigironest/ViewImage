@@ -1,7 +1,7 @@
 'use strict';
 
-const DEBUG = false;
-const TRACE = DEBUG && false;
+const DEBUG = true;
+const TRACE = DEBUG && true;
 
 const VERSIONS = {
     FEB18: 'FEB18',
@@ -33,7 +33,13 @@ function getContainer(node) {
         ['.irc_c[data-ved]', VERSIONS.JUL19],
         ['.tvh9oe[style*="display: block;"]', VERSIONS.OCT19],
         ['.EIehLd[style*="display: block;"]', VERSIONS.OCT19],
-        ['.fHE6De[style*="display: block;"]', VERSIONS.OCT19]
+        ['.fHE6De[style*="display: block;"]', VERSIONS.OCT19],
+        ['.tvh9oe', VERSIONS.OCT19],
+        ['.EIehLd', VERSIONS.OCT19],
+        ['.fHE6De', VERSIONS.OCT19],
+        ['.hh1Ztf', VERSIONS.OCT19],
+        ['.ip4nvd', VERSIONS.OCT19],
+        ['.cLqwWc', VERSIONS.OCT19]
     ].forEach(element => {
         var child = node.querySelector(element[0]);
         if (child) {
@@ -89,10 +95,11 @@ function findImageURL(container, version) {
             image = iframe.contentDocument.querySelector('img#irc_mi');
             break;
         case VERSIONS.OCT19:
-            image = container.querySelector('img[src][style][jsaction]');
-            if (image.src in images) {
+            image = container.querySelector('img[src][style][jsaction], img.n3VNCb, img.r4a1G, img.sFlh5c, img.FyHeAf, img.iPVvYb');
+            if (image && image.src in images) {
                 return images[image.src];
             }
+            break;
     }
 
     // Override url for images using base64 embeds
@@ -153,6 +160,9 @@ function addViewImageButton(container, node, imageURL, version) {
             var nodeRoot = node.parentElement.parentElement;
 
             var visitButtons = [
+                container.querySelector('.h11UTe a.umNKYc'),
+                container.querySelector('.h11UTe a > div')?.parentElement,
+                container.querySelector('a > div > span + svg')?.parentElement?.parentElement,
                 nodeRoot?.parentElement?.nextSibling?.querySelector?.('a > div > span + svg')?.parentElement?.parentElement,
                 nodeRoot?.parentElement?.nextSibling?.nextSibling?.querySelector?.('a > div > span + svg')?.parentElement?.parentElement,
                 nodeRoot?.nextSibling?.nextSibling?.querySelector?.('a > div > span + svg')?.parentElement?.parentElement,
@@ -466,10 +476,10 @@ try {
 
 
 function processNode(node) {
-    var imageNodes = document.querySelectorAll('img[src][style][jsaction]');
+    var imageNodes = document.querySelectorAll('img[src][style][jsaction], img.n3VNCb, img.r4a1G, img.sFlh5c');
     for (var i = 0; i < imageNodes.length; i++) {
         var imageNode = imageNodes[i];
-        if (nodeIsVisible(imageNode) && node.contains(imageNode) && addLinks(node)) {
+        if (nodeIsVisible(imageNode) && node.contains(imageNode) && addLinks(imageNode)) {
             return;
         }
     }

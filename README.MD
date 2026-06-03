@@ -15,3 +15,4 @@ You can get this extension for Firefox or Chrome or as a userscript:
 ### Credits
 - More accurate URL collection thanks to [devunt](https://github.com/devunt)/[make-gis-great-again](https://github.com/devunt/make-gis-great-again)
 - Icon by [Daniel Hickman](https://github.com/danielhickman)
+- Modern Google Images layout compatibility updates by [martigironest](https://github.com/martigironest)
